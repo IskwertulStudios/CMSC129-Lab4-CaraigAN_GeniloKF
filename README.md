@@ -216,6 +216,14 @@ Unit scope:
 - `bigplant` (60% to <80%)
 - `tree` (80% to <100%)
 - `fruit` (100%)
+---
+![toggle-subtask results](./screenshots/toggle-subtask.png "Hover text")
+
+Unit scope:
+- `toggleSubtask(task, subtaskId)` mutates the same `Task` instance in-place.
+- matching subtask `done` value is toggled.
+- repeated calls toggle back.
+- returns `null` when subtask id is not found.
 
 ## CI/CD Notes
 
