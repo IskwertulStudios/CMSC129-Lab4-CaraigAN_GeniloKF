@@ -88,25 +88,9 @@ export function toggleSubtask(task, subtaskId) {
   if (!(task instanceof Task)) return null;
   if (typeof subtaskId !== "string" || subtaskId.trim().length === 0) return null;
 
-  let found = false;
-  const updatedSubtasks = task.subtasks.map((subtask) => {
-    if (subtask.id !== subtaskId) {
-      return new Subtask(subtask);
-    }
-    found = true;
-    return new Subtask({
-      id: subtask.id,
-      text: subtask.text,
-      done: !subtask.done,
-    });
-  });
+  const targetSubtask = task.subtasks.find((subtask) => subtask.id === subtaskId);
+  if (!targetSubtask) return null;
 
-  if (!found) return null;
-
-  return new Task({
-    id: task.id,
-    title: task.title,
-    createdAt: task.createdAt,
-    subtasks: updatedSubtasks,
-  });
+  targetSubtask.done = !targetSubtask.done;
+  return task;
 }

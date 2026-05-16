@@ -91,7 +91,7 @@ describe("createTask", () => {
 });
 
 describe("toggleSubtask", () => {
-  test("toggles matching subtask done state", () => {
+  test("toggles matching subtask done state in-place", () => {
     const task = new Task({
       id: "task-1",
       title: "Daily farm work",
@@ -104,12 +104,12 @@ describe("toggleSubtask", () => {
 
     const updated = toggleSubtask(task, "sub-1");
 
-    expect(updated).toBeInstanceOf(Task);
+    expect(updated).toBe(task);
     expect(updated.subtasks[0].done).toBe(true);
     expect(updated.subtasks[1].done).toBe(false);
   });
 
-  test("toggles back when called again for the same subtask", () => {
+  test("toggles back when called again for the same subtask in-place", () => {
     const task = new Task({
       id: "task-1",
       title: "Daily farm work",
@@ -118,9 +118,14 @@ describe("toggleSubtask", () => {
     });
 
     const firstToggle = toggleSubtask(task, "sub-1");
-    const secondToggle = toggleSubtask(firstToggle, "sub-1");
+    expect(firstToggle).toBe(task);
+    expect(task.subtasks[0].done).toBe(true);
 
-    expect(firstToggle.subtasks[0].done).toBe(true);
+    const secondToggle = toggleSubtask(firstToggle, "sub-1");
+    expect(secondToggle).toBe(task);
+    expect(task.subtasks[0].done).toBe(false);
+
+    expect(firstToggle.subtasks[0].done).toBe(false);
     expect(secondToggle.subtasks[0].done).toBe(false);
   });
 
