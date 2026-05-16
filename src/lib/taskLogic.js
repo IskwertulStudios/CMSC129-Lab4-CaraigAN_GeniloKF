@@ -8,11 +8,40 @@ function makeId() {
 }
 
 export function getPlantStage(task) {
-  throw new Error("Not implemented");
+  if (!(task instanceof Task)) {
+    throw new Error("task must be a Task instance");
+  }
+
+  const completed = task.getCompletedCount();
+  const total = task.getTotalCount();
+  const percentage = getCompletionPercentage(completed, total);
+
+  if (percentage < 20) return "seedling";
+  if (percentage < 40) return "sprout";
+  if (percentage < 60) return "plant";
+  if (percentage < 80) return "bigplant";
+  if (percentage < 100) return "tree";
+  return "fruit";
 }
 
 export function getCompletionPercentage(completed, total) {
-  throw new Error("Not implemented");
+  if (typeof completed !== "number" || typeof total !== "number") {
+    throw new Error("completed and total must be numbers");
+  }
+  if (!Number.isFinite(completed) || !Number.isFinite(total)) {
+    throw new Error("completed and total must be finite");
+  }
+  if (total <= 0) {
+    throw new Error("total must be greater than 0");
+  }
+  if (completed < 0) {
+    throw new Error("completed cannot be negative");
+  }
+  if (completed > total) {
+    throw new Error("completed cannot exceed total");
+  }
+
+  return (completed / total) * 100;
 }
 
 export function validateTask(draft) {
