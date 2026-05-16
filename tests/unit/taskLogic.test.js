@@ -1,6 +1,49 @@
 import { describe, test, expect } from "@jest/globals";
-import { createTask, validateTask } from "../../src/lib/taskLogic";
+import { createTask, getPlantStage, validateTask } from "../../src/lib/taskLogic";
 import { Task } from "../../src/lib/Task";
+
+describe("getPlantStage", () => {
+  const makeTask = (completed, total) =>
+    new Task({
+      id: "task-1",
+      title: "Farm task",
+      createdAt: 1,
+      subtasks: Array.from({ length: total }, (_, index) => ({
+        id: `sub-${index + 1}`,
+        text: `Subtask ${index + 1}`,
+        done: index < completed,
+      })),
+    });
+
+  test("returns seedling for 0% to below 20%", () => {
+    expect(getPlantStage(makeTask(0, 5))).toBe("seedling");
+    expect(getPlantStage(makeTask(1, 6))).toBe("seedling");
+  });
+
+  test("returns sprout for 20% to below 40%", () => {
+    expect(getPlantStage(makeTask(1, 5))).toBe("sprout");
+    expect(getPlantStage(makeTask(1, 3))).toBe("sprout");
+  });
+
+  test("returns plant for 40% to below 60%", () => {
+    expect(getPlantStage(makeTask(2, 5))).toBe("plant");
+    expect(getPlantStage(makeTask(5, 9))).toBe("plant");
+  });
+
+  test("returns bigplant for 60% to below 80%", () => {
+    expect(getPlantStage(makeTask(3, 5))).toBe("bigplant");
+    expect(getPlantStage(makeTask(3, 4))).toBe("bigplant");
+  });
+
+  test("returns tree for 80% to below 100%", () => {
+    expect(getPlantStage(makeTask(4, 5))).toBe("tree");
+    expect(getPlantStage(makeTask(9, 10))).toBe("tree");
+  });
+
+  test("returns fruit for 100%", () => {
+    expect(getPlantStage(makeTask(5, 5))).toBe("fruit");
+  });
+});
 
 describe("validateTask", () => {
   test("returns true for a valid draft", () => {
