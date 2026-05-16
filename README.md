@@ -198,20 +198,13 @@ npm run test:system
 npm test
 ```
 
-## Example `package.json` scripts
+## Test Results
 
-```json
-{
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "test:unit": "jest tests/unit",
-    "test:integration": "jest tests/integration",
-    "test:system": "playwright test",
-    "test": "npm run test:unit && npm run test:integration && npm run test:system"
-  }
-}
-```
+![create-task results](./screenshots/create-task.png)
+
+Unit scope:
+- `validateTask` returns `true`/`false` based on draft validity.
+- `createTask` returns `Task` on success, `null` on invalid input.
 
 ## CI/CD Notes
 
