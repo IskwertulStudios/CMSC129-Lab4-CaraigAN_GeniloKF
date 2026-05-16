@@ -1,5 +1,10 @@
 import { describe, test, expect } from "@jest/globals";
-import { createTask, getPlantStage, validateTask } from "../../src/lib/taskLogic";
+import {
+  createTask,
+  getPlantStage,
+  toggleSubtask,
+  validateTask,
+} from "../../src/lib/taskLogic";
 import { Task } from "../../src/lib/Task";
 
 describe("getPlantStage", () => {
@@ -82,5 +87,51 @@ describe("createTask", () => {
   test("returns null when create fails validation", () => {
     expect(createTask({ title: "", subtasks: [] })).toBeNull();
     expect(createTask(null)).toBeNull();
+  });
+});
+
+describe("toggleSubtask", () => {
+  test("toggles matching subtask done state", () => {
+    const task = new Task({
+      id: "task-1",
+      title: "Daily farm work",
+      createdAt: 1,
+      subtasks: [
+        { id: "sub-1", text: "Water plants", done: false },
+        { id: "sub-2", text: "Clear weeds", done: false },
+      ],
+    });
+
+    const updated = toggleSubtask(task, "sub-1");
+
+    expect(updated).toBeInstanceOf(Task);
+    expect(updated.subtasks[0].done).toBe(true);
+    expect(updated.subtasks[1].done).toBe(false);
+  });
+
+  test("toggles back when called again for the same subtask", () => {
+    const task = new Task({
+      id: "task-1",
+      title: "Daily farm work",
+      createdAt: 1,
+      subtasks: [{ id: "sub-1", text: "Water plants", done: false }],
+    });
+
+    const firstToggle = toggleSubtask(task, "sub-1");
+    const secondToggle = toggleSubtask(firstToggle, "sub-1");
+
+    expect(firstToggle.subtasks[0].done).toBe(true);
+    expect(secondToggle.subtasks[0].done).toBe(false);
+  });
+
+  test("returns null for unknown subtask id", () => {
+    const task = new Task({
+      id: "task-1",
+      title: "Daily farm work",
+      createdAt: 1,
+      subtasks: [{ id: "sub-1", text: "Water plants", done: false }],
+    });
+
+    expect(toggleSubtask(task, "missing-subtask")).toBeNull();
   });
 });
