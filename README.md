@@ -234,6 +234,11 @@ Unit scope:
 - matching subtask `done` value is toggled.
 - repeated calls toggle back.
 - returns `null` when subtask id is not found.
+---
+![save-task results](./screenshots/save-task.png "Hover text")
+
+Integration scope:
+- `saveTasks(tasks)` posts created task data to the Express API (`POST /api/tasks`).
 
 ## CI/CD Notes
 
