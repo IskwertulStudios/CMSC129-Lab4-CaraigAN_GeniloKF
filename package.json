@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server/index.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -14,6 +15,7 @@
     "test": "npm run test:unit && npm run test:integration && npm run test:system"
   },
   "dependencies": {
+    "express": "^4.21.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

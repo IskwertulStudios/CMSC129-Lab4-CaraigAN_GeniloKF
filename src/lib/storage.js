@@ -1,15 +1,27 @@
-export function loadTasks() {
-  try {
-    const raw = localStorage.getItem("harvest-tasks-v1");
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
+function toSafeArray(value) {
+  return Array.isArray(value) ? value : [];
 }
 
-export function saveTasks(tasks) {
-  const safeTasks = Array.isArray(tasks) ? tasks : [];
-  localStorage.setItem("harvest-tasks-v1", JSON.stringify(safeTasks));
+export async function loadTasks() {
+  const response = await fetch("/api/tasks");
+  if (!response.ok) {
+    throw new Error("Failed to load tasks from API");
+  }
+  const data = await response.json();
+  return toSafeArray(data.tasks);
+}
+
+export async function saveTasks(tasks) {
+  const safeTasks = toSafeArray(tasks);
+  const response = await fetch("/api/tasks", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ tasks: safeTasks }),
+  });
+  if (!response.ok) {
+    throw new Error("Failed to save tasks to API");
+  }
+  return response.json();
 }

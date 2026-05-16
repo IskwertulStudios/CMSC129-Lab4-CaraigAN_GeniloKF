@@ -1,14 +1,16 @@
 import { createTask } from "../../src/lib/taskLogic";
 import { loadTasks, saveTasks } from "../../src/lib/storage";
 
-const STORAGE_KEY = "harvest-tasks-v1";
-
 describe("storage integration", () => {
   beforeEach(() => {
-    localStorage.clear();
+    global.fetch = jest.fn();
   });
 
-  test("saves a created task to localStorage", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test("saves a created task to express API", async () => {
     const createdTask = createTask({
       title: "Prepare soil bed",
       subtasks: ["Gather compost", "Water soil"],
@@ -16,20 +18,22 @@ describe("storage integration", () => {
 
     expect(createdTask).not.toBeNull();
 
-    saveTasks([createdTask]);
-
-    const raw = localStorage.getItem(STORAGE_KEY);
-    expect(raw).not.toBeNull();
-    const parsed = JSON.parse(raw);
-    expect(Array.isArray(parsed)).toBe(true);
-    expect(parsed).toHaveLength(1);
-    expect(parsed[0]).toMatchObject({
-      id: createdTask.id,
-      title: "Prepare soil bed",
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ ok: true, count: 1 }),
     });
+
+    const result = await saveTasks([createdTask]);
+
+    expect(fetch).toHaveBeenCalledWith("/api/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tasks: [createdTask] }),
+    });
+    expect(result).toMatchObject({ ok: true, count: 1 });
   });
 
-  test("loads tasks from localStorage", () => {
+  test("loads tasks from express API", async () => {
     const seeded = [
       {
         id: "task-1",
@@ -41,9 +45,13 @@ describe("storage integration", () => {
         ],
       },
     ];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ tasks: seeded }),
+    });
 
-    const loadedTasks = loadTasks();
+    const loadedTasks = await loadTasks();
+    expect(fetch).toHaveBeenCalledWith("/api/tasks");
     expect(Array.isArray(loadedTasks)).toBe(true);
     expect(loadedTasks).toHaveLength(1);
     expect(loadedTasks[0]).toMatchObject({

@@ -12,7 +12,7 @@ Harvest Tasks turns productivity into a small farming loop:
 - Plant visuals evolve through six growth stages.
 - Completing all subtasks reaches the final harvest stage.
 
-All data is stored client-side in `localStorage` (no backend, no accounts).
+Data is stored through a small Express API (`/api/tasks`) via HTTP request-response.
 
 ## Core Mechanics
 
@@ -121,7 +121,7 @@ Version the key to support future schema migration.
 
 These functions should avoid I/O and browser APIs.
 
-### `src/lib/storage.js` (localStorage adapter)
+### `src/lib/storage.js` (API storage adapter)
 
 - `loadTasks()`
 - `saveTasks(tasks)`
@@ -188,6 +188,16 @@ npm run dev
 Default local URL:
 
 - `http://localhost:5173`
+
+Start API server:
+
+```bash
+npm run server
+```
+
+Default API URL:
+
+- `http://localhost:3001/api/tasks`
 
 ## Test Commands
 
