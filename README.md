@@ -205,6 +205,17 @@ npm test
 Unit scope:
 - `validateTask` returns `true`/`false` based on draft validity.
 - `createTask` returns `Task` on success, `null` on invalid input.
+---
+![get-plant-stage results](./screenshots/get-plant-stage.png "Hover text")
+
+Unit scope:
+- `getPlantStage(task)` stage boundaries:
+- `seedling` (0% to <20%)
+- `sprout` (20% to <40%)
+- `plant` (40% to <60%)
+- `bigplant` (60% to <80%)
+- `tree` (80% to <100%)
+- `fruit` (100%)
 
 ## CI/CD Notes
 
