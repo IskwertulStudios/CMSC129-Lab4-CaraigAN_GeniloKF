@@ -88,9 +88,17 @@ export function toggleSubtask(task, subtaskId) {
   if (!(task instanceof Task)) return null;
   if (typeof subtaskId !== "string" || subtaskId.trim().length === 0) return null;
 
-  const targetSubtask = task.subtasks.find((subtask) => subtask.id === subtaskId);
-  if (!targetSubtask) return null;
+  const idx = task.subtasks.findIndex((subtask) => subtask.id === subtaskId);
+  if (idx === -1) return null;
 
-  targetSubtask.done = !targetSubtask.done;
-  return task;
+  return new Task({
+    id: task.id,
+    title: task.title,
+    createdAt: task.createdAt,
+    subtasks: task.subtasks.map((subtask, i) =>
+      i === idx
+        ? new Subtask({ id: subtask.id, text: subtask.text, done: !subtask.done })
+        : subtask,
+    ),
+  });
 }
