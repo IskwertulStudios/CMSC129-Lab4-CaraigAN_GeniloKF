@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { loadTasks, saveTasks } from "./lib/storage";
+import { toggleSubtask } from "./lib/taskLogic";
 import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 
@@ -28,6 +29,16 @@ export default function App() {
     setShowForm(false);
   }
 
+  function handleToggleSubtask(taskId, subtaskId) {
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id !== taskId) return task;
+        const updated = toggleSubtask(task, subtaskId);
+        return updated ?? task;
+      }),
+    );
+  }
+
   return (
     <>
       <header className="app-header">
@@ -49,6 +60,7 @@ export default function App() {
       ) : (
         <TaskList
           tasks={tasks}
+          onToggleSubtask={handleToggleSubtask}
         />
       )}
     </>
