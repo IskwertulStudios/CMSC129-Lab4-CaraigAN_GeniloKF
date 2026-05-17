@@ -36,3 +36,14 @@ test("user can check a subtask and see the plant icon advance", async ({ page })
   await checkboxes.nth(3).check();
   await expect(page.getByTestId("plant-icon").first()).toHaveAttribute("data-stage", "tree");
 });
+
+test("user can delete a task and it disappears from the farm", async ({ page }) => {
+  await page.goto("/");
+  await page.getByTestId("new-task-btn").click();
+  await page.getByTestId("task-title-input").fill("Delete me");
+  await page.getByTestId("subtask-input-0").fill("One thing");
+  await page.getByTestId("submit-task-btn").click();
+  await expect(page.getByTestId("task-card")).toHaveCount(1);
+  await page.getByTestId("delete-task-btn").first().click();
+  await expect(page.getByTestId("task-card")).toHaveCount(0);
+});
