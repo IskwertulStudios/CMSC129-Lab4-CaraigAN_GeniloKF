@@ -91,7 +91,7 @@ describe("createTask", () => {
 });
 
 describe("toggleSubtask", () => {
-  test("toggles matching subtask done state in-place", () => {
+  test("toggles matching subtask and returns a new task without mutating original", () => {
     const task = new Task({
       id: "task-1",
       title: "Daily farm work",
@@ -104,12 +104,14 @@ describe("toggleSubtask", () => {
 
     const updated = toggleSubtask(task, "sub-1");
 
-    expect(updated).toBe(task);
+    expect(updated).not.toBe(task);
+    expect(updated).toBeInstanceOf(Task);
+    expect(task.subtasks[0].done).toBe(false);
     expect(updated.subtasks[0].done).toBe(true);
     expect(updated.subtasks[1].done).toBe(false);
   });
 
-  test("toggles back when called again for the same subtask in-place", () => {
+  test("toggling twice returns a task with the subtask reverted", () => {
     const task = new Task({
       id: "task-1",
       title: "Daily farm work",
@@ -118,14 +120,13 @@ describe("toggleSubtask", () => {
     });
 
     const firstToggle = toggleSubtask(task, "sub-1");
-    expect(firstToggle).toBe(task);
-    expect(task.subtasks[0].done).toBe(true);
+    expect(firstToggle).not.toBe(task);
+    expect(task.subtasks[0].done).toBe(false);
+    expect(firstToggle.subtasks[0].done).toBe(true);
 
     const secondToggle = toggleSubtask(firstToggle, "sub-1");
-    expect(secondToggle).toBe(task);
-    expect(task.subtasks[0].done).toBe(false);
-
-    expect(firstToggle.subtasks[0].done).toBe(false);
+    expect(secondToggle).not.toBe(firstToggle);
+    expect(firstToggle.subtasks[0].done).toBe(true);
     expect(secondToggle.subtasks[0].done).toBe(false);
   });
 
