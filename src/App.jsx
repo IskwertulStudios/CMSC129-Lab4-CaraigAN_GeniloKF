@@ -39,6 +39,10 @@ export default function App() {
     );
   }
 
+  function handleDeleteTask(taskId) {
+    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+  }
+
   return (
     <>
       <header className="app-header">
@@ -61,6 +65,7 @@ export default function App() {
         <TaskList
           tasks={tasks}
           onToggleSubtask={handleToggleSubtask}
+          onDeleteTask={handleDeleteTask}
         />
       )}
     </>
