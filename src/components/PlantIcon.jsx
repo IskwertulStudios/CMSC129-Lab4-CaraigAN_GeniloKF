@@ -2,60 +2,102 @@ const SIZE = 48;
 
 const STAGE_SVGS = {
   seedling: (
-    <svg width={SIZE} height={SIZE} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M 6 38 Q 24 48 42 38" />
-      <ellipse cx="24" cy="34" rx="5" ry="4" />
-      <path d="M 24 30 Q 28 24 26 20" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={SIZE}
+      height={SIZE}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21v-3 M12 18c-1.5 0-3-1.5-3-3 1.5 0 3 1.5 3 3 M12 18c1.5 0 3-1.5 3-3-1.5 0-3 1.5-3 3" />
     </svg>
   ),
   sprout: (
-    <svg width={SIZE} height={SIZE} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M 24 42 L 24 16" />
-      <path d="M 24 28 Q 12 24 10 32 Q 16 28 24 28" />
-      <path d="M 24 28 Q 36 24 38 32 Q 32 28 24 28" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={SIZE}
+      height={SIZE}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21v-9 M12 12c-2.5 0-5-2-5-5 2.5 0 5 2 5 5 M12 16c2.5 0 5-2 5-5-2.5 0-5 2-5 5" />
     </svg>
   ),
   plant: (
-    <svg width={SIZE} height={SIZE} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M 24 44 L 24 8" />
-      <path d="M 24 32 Q 12 26 10 34 Q 16 30 24 32" />
-      <path d="M 24 32 Q 36 26 38 34 Q 32 30 24 32" />
-      <path d="M 24 18 Q 10 12 8 20 Q 14 16 24 18" />
-      <path d="M 24 18 Q 38 12 40 20 Q 34 16 24 18" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={SIZE}
+      height={SIZE}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21V9 M12 9q-2-3 0-6 2 3 0 6 M12 13c-2.5 0-5-2-5-5 2.5 0 5 2 5 5 M12 17c2.5 0 5-2 5-5-2.5 0-5 2-5 5" />
     </svg>
   ),
   bigplant: (
-    <svg width={SIZE} height={SIZE} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M 22 44 L 22 14" />
-      <path d="M 26 44 L 26 14" />
-      <path d="M 24 32 Q 10 24 8 34 Q 14 28 24 32" />
-      <path d="M 24 30 Q 38 24 40 34 Q 34 28 24 30" />
-      <path d="M 24 20 Q 8 12 6 22 Q 12 16 24 20" />
-      <path d="M 24 18 Q 40 10 42 20 Q 36 14 24 18" />
-      <path d="M 22 44 Q 18 46 14 44" />
-      <path d="M 26 44 Q 30 46 34 44" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={SIZE}
+      height={SIZE}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21V5 M12 17q-4-1-5-5 M12 13q5-1 6-5 M12 9q-3-1-4-4" />
+      <path d="M12 5q-1.5-2 0-4 1.5 2 0 4 M7 12c-1.5 0-3-1.5-3-3 1.5 0 3 1.5 3 3 M18 8c1.5 0 3-1.5 3-3-1.5 0-3 1.5-3 3 M8 5c-1.5 0-3-1.5-3-3 1.5 0 3 1.5 3 3" />
     </svg>
   ),
   tree: (
-    <svg width={SIZE} height={SIZE} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M 22 44 L 22 26" />
-      <path d="M 26 44 L 26 26" />
-      <path d="M 8 28 Q 24 4 40 28 Q 24 20 8 28" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={SIZE}
+      height={SIZE}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21v-7" />
+      <path d="M17 14c1.93 0 3.5-1.57 3.5-3.5S18.93 7 17 7c-0.5-2.26-2.52-4-5-4s-4.5 1.74-5 4C5.07 7 3.5 8.57 3.5 10.5S5.07 14 7 14h10z" />
     </svg>
   ),
   fruit: (
-    <svg width={SIZE} height={SIZE} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M 22 44 L 22 26" />
-      <path d="M 26 44 L 26 26" />
-      <path d="M 8 28 Q 24 4 40 28 Q 24 20 8 28" />
-      <circle cx="18" cy="20" r="3" fill="currentColor" stroke="none" />
-      <circle cx="26" cy="16" r="3" fill="currentColor" stroke="none" />
-      <circle cx="22" cy="26" r="3" fill="currentColor" stroke="none" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={SIZE}
+      height={SIZE}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 7.5 C9 4.5 4 5.5 4 11 C4 16.5 8 21 12 19.5 C16 21 20 16.5 20 11 C20 5.5 15 4.5 12 7.5 Z" />
+      <path d="M12 7.5 V3" />
+      <path d="M12 5 C12 3.5 13.5 3 15 3 C15 4.5 13.5 5 12 5 Z" />
     </svg>
   ),
 };
 
-export default function PlantIcon({ stage, size = 48 }) {
+export default function PlantIcon({ stage }) {
   const svg = STAGE_SVGS[stage] ?? STAGE_SVGS.seedling;
   return (
     <div className="plant-icon" data-stage={stage ?? "seedling"} data-testid="plant-icon">
