@@ -239,6 +239,14 @@ Unit scope:
 
 Integration scope:
 - `saveTasks(tasks)` posts created task data to the Express API (`POST /api/tasks`).
+---
+![system-tests results](./screenshots/system-tests.png)
+
+System scope:
+- `user can create a task with subtasks and see the plant appear` — full form-to-card journey.
+- `user can check a subtask and see the plant icon advance` — checkbox toggle advances `data-stage` to `tree` at 80%.
+- `user can delete a task and it disappears from the farm` — delete button removes card and persists.
+- Tests run against a real Chromium browser via Playwright with Express + Vite auto-started.
 
 ## CI/CD Notes
 
