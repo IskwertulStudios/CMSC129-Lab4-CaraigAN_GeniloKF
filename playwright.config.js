@@ -5,9 +5,16 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:5173",
   },
-  webServer: {
-    command: "npm run dev",
-    port: 5173,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: "npm run server",
+      port: 3001,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "npm run dev",
+      port: 5173,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });
