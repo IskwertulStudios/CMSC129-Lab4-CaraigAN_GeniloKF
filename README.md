@@ -239,6 +239,8 @@ Unit scope:
 
 Integration scope:
 - `saveTasks(tasks)` posts created task data to the Express API (`POST /api/tasks`).
+- `loadTasks()` retrieves saved task data from the Express API (`GET /api/tasks`).
+- Tests run against a mocked global `fetch` API within a Jest environment.
 ---
 ![system-tests results](./screenshots/system-tests.png)
 
